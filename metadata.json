@@ -1,0 +1,6 @@
+{
+  "name": "Gepler Industrial",
+  "description": "Gepler Industrial พัฒนาระบบ Web, App, IoT และ AI เพื่อเชื่อมข้อมูล เครื่องจักร และการทำงานของธุรกิจเข้าด้วยกัน",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" fill="none">
+  <!-- Gepler Logo Emblem -->
+  <g transform="translate(10, 10)">
+    <!-- Outer orange curve / G arc -->
+    <path d="M 68 18 C 36 18 16 38 16 64 C 16 90 38 106 68 106 C 94 106 108 92 110 74 L 68 74 L 68 56 L 126 56 C 128 88 106 118 68 118 C 28 118 2 92 2 64 C 2 34 28 4 68 4 C 84 4 99 9 110 18 L 96 32 C 88 23 79 18 68 18 Z" fill="#F26A21" />
+    
+    <!-- Dynamic curved black / dark blade swoosh -->
+    <path d="M 4 90 C 26 84 48 58 78 40 C 100 27 118 22 134 24 C 114 36 94 56 68 74 C 42 92 20 98 4 90 Z" fill="#151515" />
+    <path d="M 12 85 C 34 78 58 54 84 38 C 104 25 120 22 132 23 C 112 33 92 52 68 70 C 44 87 24 92 12 85 Z" fill="#222222" opacity="0.6" />
+    
+    <!-- Orange satellite dot on top right -->
+    <circle cx="132" cy="22" r="8" fill="#F26A21" />
+    
+    <!-- Inner bright yellow core sphere -->
+    <circle cx="112" cy="48" r="13" fill="#FFC928" />
+    <circle cx="110" cy="46" r="4" fill="#FFE27A" opacity="0.8" />
+    
+    <!-- Swept tail lower left -->
+    <path d="M 16 94 C 8 98 2 108 0 114 C 8 112 18 106 24 98 Z" fill="#F26A21" />
+  </g>
+
+  <!-- Wordmark "gepler" -->
+  <text x="175" y="78" font-family="'Manrope', 'IBM Plex Sans Thai', sans-serif" font-size="54" font-weight="800" fill="#FFFFFF" letter-spacing="-0.04em">gepler</text>
+  
+  <!-- Subtitle "INDUSTRIAL" -->
+  <text x="178" y="98" font-family="'Manrope', 'IBM Plex Sans Thai', sans-serif" font-size="12" font-weight="700" fill="#F26A21" letter-spacing="0.28em">INDUSTRIAL</text>
+</svg>
