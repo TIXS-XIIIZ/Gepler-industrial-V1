@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 
 export const Projects: React.FC = () => {
   const [activeBib, setActiveBib] = useState('0261');
 
   const bibRecords = [
     { bib: '0261', status: 'FINISH', time: '05:42:18', category: '42K Open' },
-    { bib: '0184', status: 'CHECKPOINT 3', time: '04:19:02', category: '42K Master' },
+    { bib: '0184', status: 'CP3', time: '04:19:02', category: '42K Master' },
     { bib: '0092', status: 'FINISH', time: '03:58:45', category: '42K Elite' },
   ];
 
@@ -19,11 +20,19 @@ export const Projects: React.FC = () => {
     { hour: '11:00', height: '78%' },
   ];
 
+  const currentRecord = bibRecords.find((b) => b.bib === activeBib) || bibRecords[0];
+
   return (
-    <section id="projects" className="py-24 md:py-32 bg-[#F3F1EC] text-[#151515]">
+    <section id="projects" className="py-24 md:py-32 bg-[#F3F1EC] text-[#151515] overflow-hidden">
       <div className="max-w-[1180px] w-[calc(100%-48px)] mx-auto">
         {/* Section Heading */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-10 items-start mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-10 items-start mb-20"
+        >
           <div className="flex items-center gap-4">
             <span className="w-8 h-8 rounded-full border border-[#F26A21] text-[#F26A21] font-bold text-xs flex items-center justify-center font-mono">
               03
@@ -46,11 +55,17 @@ export const Projects: React.FC = () => {
               </span>
             </h2>
           </div>
-        </div>
+        </motion.div>
 
         {/* Project 1: Race Check-in & Timing Platform */}
         <article className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center py-16 border-t border-[#CCC6BC]">
-          <div className="flex flex-col">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="flex flex-col"
+          >
             <span className="text-xs font-bold tracking-[0.18em] uppercase text-[#F26A21] mb-4" style={{ fontFamily: 'var(--display)' }}>
               EVENT TECHNOLOGY · 2026
             </span>
@@ -79,10 +94,17 @@ export const Projects: React.FC = () => {
                 <dd className="m-0 text-[#222222]">ติดตามสถานะผู้แข่งขันได้จากจุดเดียว</dd>
               </div>
             </dl>
-          </div>
+          </motion.div>
 
           {/* Race UI Frame */}
-          <div className="relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(44,35,20,0.18)] p-6 md:p-8 text-white overflow-hidden rounded-sm">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: 'easeOut' }}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(44,35,20,0.18)] p-6 md:p-8 text-white overflow-hidden rounded-sm"
+          >
             {/* Ambient Corner Glow */}
             <div className="absolute -right-20 -bottom-20 w-64 h-64 rounded-full bg-[#F26A21]/15 blur-3xl pointer-events-none" />
 
@@ -117,7 +139,7 @@ export const Projects: React.FC = () => {
               </div>
             </div>
 
-            {/* Race Velocity Chart */}
+            {/* Race Velocity Chart with Animated Bars on Scroll */}
             <div className="h-36 mt-6 border-l border-b border-[#444444] flex items-end gap-2 sm:gap-3 px-4 pt-4">
               {chartBars.map((bar, i) => (
                 <div
@@ -126,8 +148,12 @@ export const Projects: React.FC = () => {
                   style={{ height: '100%' }}
                 >
                   <div className="w-full h-full flex items-end">
-                    <div
-                      className="w-full bg-gradient-to-t from-[#5B2B14] to-[#F26A21] rounded-t-sm transition-all duration-300 group-hover:brightness-125"
+                    <motion.div
+                      initial={{ scaleY: 0 }}
+                      whileInView={{ scaleY: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.15 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                      className="w-full bg-gradient-to-t from-[#5B2B14] to-[#F26A21] rounded-t-sm origin-bottom transition-all duration-300 group-hover:brightness-125"
                       style={{ height: bar.height }}
                     />
                   </div>
@@ -137,22 +163,41 @@ export const Projects: React.FC = () => {
 
             {/* Interactive BIB Quick Record Table */}
             <div className="mt-5 bg-[#222222] p-3.5 flex items-center justify-between text-xs font-mono">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <span className="text-[#A0A0A0]">BIB</span>
-                <span className="font-bold text-white bg-black/40 px-2 py-0.5 rounded">
-                  {activeBib}
-                </span>
-                <span className="text-[#72CC91] font-semibold">FINISH</span>
+                <div className="flex gap-1.5">
+                  {bibRecords.map((r) => (
+                    <button
+                      key={r.bib}
+                      onClick={() => setActiveBib(r.bib)}
+                      className={`px-2 py-0.5 rounded text-[11px] font-bold transition-all ${
+                        activeBib === r.bib
+                          ? 'bg-[#F26A21] text-white shadow-sm'
+                          : 'bg-black/40 text-neutral-400 hover:text-white'
+                      }`}
+                    >
+                      {r.bib}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-[#72CC91] font-semibold">{currentRecord.status}</span>
               </div>
-              <b className="text-[#FFC928]">05:42:18</b>
+              <b className="text-[#FFC928]">{currentRecord.time}</b>
             </div>
-          </div>
+          </motion.div>
         </article>
 
         {/* Project 2: Smart Stock Management (Reverse layout) */}
         <article className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center py-16 border-t border-[#CCC6BC]">
           {/* Stock UI Frame */}
-          <div className="order-2 lg:order-1 relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(44,35,20,0.18)] flex text-white overflow-hidden rounded-sm">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: 'easeOut' }}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="order-2 lg:order-1 relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(44,35,20,0.18)] flex text-white overflow-hidden rounded-sm"
+          >
             {/* Sidebar rail */}
             <div className="w-14 sm:w-16 bg-[#111111] border-r border-[#262626] flex flex-col items-center gap-5 py-6 shrink-0">
               <span className="font-extrabold text-2xl text-[#F26A21]" style={{ fontFamily: 'var(--display)' }}>
@@ -196,24 +241,30 @@ export const Projects: React.FC = () => {
 
               {/* Transactions List */}
               <div className="mt-6 flex flex-col divide-y divide-[#2B2B2B]">
-                <div className="flex justify-between items-center py-2.5 px-1 text-xs font-mono">
+                <div className="flex justify-between items-center py-2.5 px-1 text-xs font-mono transition-colors hover:bg-white/5">
                   <span className="text-[#B5B5B5]">PO-260914 (Bearing Unit)</span>
                   <b className="text-[#72CC91]">+120</b>
                 </div>
-                <div className="flex justify-between items-center py-2.5 px-1 text-xs font-mono">
+                <div className="flex justify-between items-center py-2.5 px-1 text-xs font-mono transition-colors hover:bg-white/5">
                   <span className="text-[#B5B5B5]">PO-260913 (Sensor Cable)</span>
                   <b className="text-[#F26A21]">−48</b>
                 </div>
-                <div className="flex justify-between items-center py-2.5 px-1 text-xs font-mono">
+                <div className="flex justify-between items-center py-2.5 px-1 text-xs font-mono transition-colors hover:bg-white/5">
                   <span className="text-[#B5B5B5]">PO-260912 (Hydraulic Valve)</span>
                   <b className="text-[#72CC91]">+76</b>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Copy (Right) */}
-          <div className="order-1 lg:order-2 flex flex-col">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="order-1 lg:order-2 flex flex-col"
+          >
             <span className="text-xs font-bold tracking-[0.18em] uppercase text-[#F26A21] mb-4" style={{ fontFamily: 'var(--display)' }}>
               INDUSTRIAL SYSTEM · 2026
             </span>
@@ -242,7 +293,7 @@ export const Projects: React.FC = () => {
                 <dd className="m-0 text-[#222222]">ตรวจสอบย้อนกลับได้ในระบบเดียว</dd>
               </div>
             </dl>
-          </div>
+          </motion.div>
         </article>
       </div>
     </section>

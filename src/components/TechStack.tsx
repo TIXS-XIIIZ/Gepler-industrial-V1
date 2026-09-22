@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 export const TechStack: React.FC = () => {
   const stackItems = [
@@ -11,10 +12,15 @@ export const TechStack: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-[#F3F1EC] text-[#151515]">
+    <section className="py-24 md:py-32 bg-[#F3F1EC] text-[#151515] overflow-hidden">
       <div className="max-w-[1180px] w-[calc(100%-48px)] mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-24 items-start">
         {/* Intro */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <span className="w-8 h-8 rounded-full border border-[#F26A21] text-[#F26A21] font-bold text-xs flex items-center justify-center font-mono mb-8">
             05
           </span>
@@ -31,14 +37,18 @@ export const TechStack: React.FC = () => {
           <p className="max-w-[340px] text-base text-[#6A6762] leading-relaxed mt-7">
             เลือกเทคโนโลยีตามโจทย์ งบประมาณ และการดูแลระยะยาว ไม่ยึดติดกับเครื่องมือเดียว
           </p>
-        </div>
+        </motion.div>
 
         {/* Stack Grid */}
         <div className="border-t border-[#CFCAC1]">
           {stackItems.map((item, index) => (
-            <div
+            <motion.div
               key={index}
-              className="py-6 border-b border-[#CFCAC1] grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-2 sm:gap-6 items-baseline transition-colors hover:bg-white/50 px-2"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.45, delay: index * 0.08, ease: 'easeOut' }}
+              className="py-6 border-b border-[#CFCAC1] grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-2 sm:gap-6 items-baseline transition-all duration-200 hover:bg-white/60 hover:pl-4 px-2 cursor-default"
             >
               <span
                 className="text-xs font-bold uppercase tracking-[0.14em] text-[#8A857D]"
@@ -52,7 +62,7 @@ export const TechStack: React.FC = () => {
               >
                 {item.tech}
               </strong>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

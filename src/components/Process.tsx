@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 export const Process: React.FC = () => {
   const steps = [
@@ -30,10 +31,16 @@ export const Process: React.FC = () => {
   ];
 
   return (
-    <section id="process" className="py-24 md:py-32 bg-[#0E0E0E] text-white">
+    <section id="process" className="py-24 md:py-32 bg-[#0E0E0E] text-white overflow-hidden">
       <div className="max-w-[1180px] w-[calc(100%-48px)] mx-auto">
         {/* Section Heading */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-10 items-start mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-10 items-start mb-16"
+        >
           <div className="flex items-center gap-4">
             <span className="w-8 h-8 rounded-full border border-[#F26A21] text-[#F26A21] font-bold text-xs flex items-center justify-center font-mono">
               04
@@ -56,13 +63,17 @@ export const Process: React.FC = () => {
               </span>
             </h2>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Process List */}
+        {/* Process List with Staggered Scroll Reveal */}
         <ol className="list-none p-0 m-0 border-t border-white/15">
-          {steps.map((step) => (
-            <li
+          {steps.map((step, index) => (
+            <motion.li
               key={step.num}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
               className="group grid grid-cols-[50px_1fr_auto] sm:grid-cols-[80px_1fr_auto] items-center py-7 px-3 sm:px-4 border-b border-white/10 transition-all duration-300 hover:bg-[#F26A21] hover:text-[#101010] hover:pl-6 cursor-pointer"
             >
               <span className="font-mono text-xs sm:text-sm font-bold text-[#F26A21] group-hover:text-black transition-colors">
@@ -82,7 +93,7 @@ export const Process: React.FC = () => {
               <span className="text-lg sm:text-xl font-mono text-[#666666] group-hover:text-black group-hover:translate-x-1 transition-all">
                 ↗
               </span>
-            </li>
+            </motion.li>
           ))}
         </ol>
       </div>

@@ -10,6 +10,8 @@ import { TechStack } from './components/TechStack.tsx';
 import { ContactCta } from './components/ContactCta.tsx';
 import { Footer } from './components/Footer.tsx';
 import { ProjectBriefModal } from './components/ProjectBriefModal.tsx';
+import { ScrollProgressBar } from './components/ScrollProgressBar.tsx';
+import { ScrollToTop } from './components/ScrollToTop.tsx';
 
 export default function App() {
   const [briefOpen, setBriefOpen] = useState(false);
@@ -18,7 +20,10 @@ export default function App() {
   const handleCloseBrief = () => setBriefOpen(false);
 
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-white selection:bg-[#F26A21] selection:text-black">
+    <div className="min-h-screen bg-[#0B0B0B] text-white selection:bg-[#F26A21] selection:text-black relative">
+      {/* Global Scroll Progress Indicator */}
+      <ScrollProgressBar />
+
       {/* Accessibility skip link */}
       <a
         href="#main-content"
@@ -44,6 +49,9 @@ export default function App() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Floating Scroll To Top with Circular Progress */}
+      <ScrollToTop />
 
       {/* Interactive Project Brief Modal */}
       <ProjectBriefModal isOpen={briefOpen} onClose={handleCloseBrief} />
