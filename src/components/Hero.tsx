@@ -56,14 +56,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               hidden: { opacity: 0, y: 24 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
             }}
-            className="text-white font-extrabold text-[2.9rem] sm:text-[3.8rem] md:text-[5rem] lg:text-[5.4rem] leading-[0.96] tracking-[-0.055em] mb-7"
+            className="text-white font-extrabold text-[2.8rem] sm:text-[3.7rem] md:text-[4.8rem] lg:text-[5.2rem] tracking-[-0.035em] mb-8 flex flex-col gap-3 sm:gap-4 md:gap-5 leading-[1.12] sm:leading-[1.14]"
             style={{ fontFamily: 'var(--display)' }}
           >
-            เชื่อมซอฟต์แวร์
-            <br />
-            เครื่องจักร และ
-            <br />
-            <em className="not-italic text-[#F26A21]">ความฉลาด</em>
+            <span className="block">เชื่อมซอฟต์แวร์</span>
+            <span className="block">เครื่องจักร และ</span>
+            <span className="block text-[#F26A21]">ความฉลาด</span>
           </motion.h1>
 
           {/* Description */}
