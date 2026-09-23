@@ -147,7 +147,7 @@ export const Solutions: React.FC = () => {
               className="absolute inset-[-4px] rounded-full border border-dashed border-[#F26A21]/30 pointer-events-none"
             />
             <img
-              src="/assets/logo-Gepler-body.png?v=2"
+              src="/assets/logo-Gepler-body-1.png"
               alt="Gepler Symbol"
               className="w-14 h-auto object-contain drop-shadow mb-0.5 transition-transform group-hover:scale-110"
             />

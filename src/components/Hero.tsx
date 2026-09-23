@@ -209,7 +209,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               className="relative z-10 p-4 filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.7)] flex items-center justify-center"
             >
               <img
-                src="/assets/logo-Gepler-body.png?v=2"
+                src="/assets/logo-Gepler-body-1.png"
                 alt="Gepler Industrial Symbol"
                 className="w-48 sm:w-60 h-auto max-h-[260px] object-contain transition-transform duration-300 hover:scale-105"
               />

@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
           className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F26A21] rounded inline-flex items-center"
         >
           <img
-            src="/assets/logo-Gepler-full.png?v=2"
+            src="/assets/logo-Gepler-full-1.png?v=3"
             alt="Gepler Industrial"
             className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform duration-200 hover:scale-[1.02]"
           />

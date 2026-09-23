@@ -28,8 +28,8 @@ export const GeplerLogo: React.FC<GeplerLogoProps> = ({
   };
 
   const src = variant === 'body' 
-    ? '/assets/logo-Gepler-body.png?v=2' 
-    : '/assets/logo-Gepler-full.png?v=2';
+    ? '/assets/logo-Gepler-body-1.png?v=3' 
+    : '/assets/logo-Gepler-full-1.png?v=3';
 
   const sizeClass = variant === 'body' ? bodySizes[size] : fullSizes[size];
 
