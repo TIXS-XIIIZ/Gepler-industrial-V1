@@ -1,18 +1,25 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { NetworkCanvas } from './NetworkCanvas.tsx';
+import { useTheme } from '../context/ThemeContext.tsx';
 
 interface HeroProps {
   onOpenBrief: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
+  const { isDark } = useTheme();
+
   return (
     <section
       id="top"
-      className="relative min-h-screen flex items-center pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden bg-[#0B0B0B]"
+      className={`relative min-h-screen flex items-center pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden transition-colors duration-300 ${
+        isDark ? 'bg-[#0B0B0B]' : 'bg-[#F8F6F1]'
+      }`}
       style={{
-        backgroundImage: 'radial-gradient(circle at 75% 38%, #261209 0%, transparent 34%)',
+        backgroundImage: isDark
+          ? 'radial-gradient(circle at 75% 38%, #261209 0%, transparent 34%)'
+          : 'radial-gradient(circle at 75% 38%, rgba(242, 106, 33, 0.12) 0%, transparent 45%)',
       }}
     >
       {/* Animated network particles canvas */}
@@ -44,7 +51,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               hidden: { opacity: 0, y: 18 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
             }}
-            className="inline-flex items-center gap-3 text-[#C5C5C5] text-xs font-bold tracking-[0.2em] uppercase mb-6"
+            className={`inline-flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase mb-6 ${
+              isDark ? 'text-[#C5C5C5]' : 'text-[#666666]'
+            }`}
           >
             <span className="w-8 h-[2px] bg-[#F26A21]" aria-hidden="true" />
             <span>WEB · APP · IoT · AI</span>
@@ -56,7 +65,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               hidden: { opacity: 0, y: 24 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
             }}
-            className="text-white font-extrabold text-[2.8rem] sm:text-[3.7rem] md:text-[4.8rem] lg:text-[5.2rem] tracking-[-0.035em] mb-8 flex flex-col gap-3 sm:gap-4 md:gap-5 leading-[1.12] sm:leading-[1.14]"
+            className={`font-extrabold text-[2.8rem] sm:text-[3.7rem] md:text-[4.8rem] lg:text-[5.2rem] tracking-[-0.035em] mb-8 flex flex-col gap-3 sm:gap-4 md:gap-5 leading-[1.12] sm:leading-[1.14] ${
+              isDark ? 'text-white' : 'text-[#141414]'
+            }`}
             style={{ fontFamily: 'var(--display)' }}
           >
             <span className="block">เชื่อมซอฟต์แวร์</span>
@@ -70,7 +81,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
             }}
-            className="max-w-[610px] text-base md:text-lg text-[#B8B8B8] leading-relaxed mb-8"
+            className={`max-w-[610px] text-base md:text-lg leading-relaxed mb-8 ${
+              isDark ? 'text-[#B8B8B8]' : 'text-[#504C46]'
+            }`}
           >
             เราออกแบบและพัฒนาระบบดิจิทัลที่ทำให้ข้อมูล ผู้ใช้งาน และกระบวนการจริงของธุรกิจทำงานร่วมกันได้อย่างลื่นไหล
           </motion.p>
@@ -95,7 +108,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
             <a
               href="#projects"
               id="hero-projects-link"
-              className="inline-flex items-center justify-between gap-6 px-6 py-4 border border-[#3D3D3D] hover:border-white text-white font-bold text-sm tracking-wider uppercase transition-all duration-200 hover:-translate-y-0.5 group"
+              className={`inline-flex items-center justify-between gap-6 px-6 py-4 border font-bold text-sm tracking-wider uppercase transition-all duration-200 hover:-translate-y-0.5 group ${
+                isDark
+                  ? 'border-[#3D3D3D] hover:border-white text-white'
+                  : 'border-black/20 hover:border-black text-[#141414] hover:bg-black/5'
+              }`}
             >
               <span>ดูผลงาน</span>
               <span className="text-lg leading-none text-[#F26A21] transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
@@ -108,19 +125,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               hidden: { opacity: 0, y: 16 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
             }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10"
+            className={`grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t ${
+              isDark ? 'border-white/10' : 'border-black/10'
+            }`}
           >
             <div className="flex items-center gap-3">
               <strong className="text-sm font-bold text-[#F26A21] tracking-wider font-mono">01</strong>
-              <span className="text-xs text-[#8F8F8F]">เริ่มจากปัญหาจริง</span>
+              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#666666]'}`}>
+                เริ่มจากปัญหาจริง
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <strong className="text-sm font-bold text-[#F26A21] tracking-wider font-mono">02</strong>
-              <span className="text-xs text-[#8F8F8F]">สร้างให้ใช้งานได้จริง</span>
+              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#666666]'}`}>
+                สร้างให้ใช้งานได้จริง
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <strong className="text-sm font-bold text-[#F26A21] tracking-wider font-mono">03</strong>
-              <span className="text-xs text-[#8F8F8F]">พร้อมขยายในอนาคต</span>
+              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#666666]'}`}>
+                พร้อมขยายในอนาคต
+              </span>
             </div>
           </motion.div>
         </motion.div>
@@ -137,7 +162,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           <motion.div
             animate={{ y: [-3, 3, -3] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute left-[4%] top-[14%] z-20 px-3 py-1.5 bg-[#111111]/90 backdrop-blur border border-[#3A3A3A] text-xs font-bold tracking-[0.14em] text-[#D5D5D5] flex items-center gap-2 shadow-xl"
+            className={`absolute left-[4%] top-[14%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
+              isDark
+                ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
+                : 'bg-white/95 border-black/15 text-[#222222]'
+            }`}
             style={{ fontFamily: 'var(--display)' }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFC928] animate-pulse" />
@@ -148,7 +177,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           <motion.div
             animate={{ y: [3, -3, 3] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute right-[4%] top-[20%] z-20 px-3 py-1.5 bg-[#111111]/90 backdrop-blur border border-[#3A3A3A] text-xs font-bold tracking-[0.14em] text-[#D5D5D5] flex items-center gap-2 shadow-xl"
+            className={`absolute right-[4%] top-[20%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
+              isDark
+                ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
+                : 'bg-white/95 border-black/15 text-[#222222]'
+            }`}
             style={{ fontFamily: 'var(--display)' }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#F26A21] animate-pulse" />
@@ -159,7 +192,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           <motion.div
             animate={{ y: [-4, 4, -4] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute right-[6%] bottom-[22%] z-20 px-3 py-1.5 bg-[#111111]/90 backdrop-blur border border-[#3A3A3A] text-xs font-bold tracking-[0.14em] text-[#D5D5D5] flex items-center gap-2 shadow-xl"
+            className={`absolute right-[6%] bottom-[22%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
+              isDark
+                ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
+                : 'bg-white/95 border-black/15 text-[#222222]'
+            }`}
             style={{ fontFamily: 'var(--display)' }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFC928] animate-pulse" />
@@ -170,7 +207,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           <motion.div
             animate={{ y: [4, -4, 4] }}
             transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute left-[8%] bottom-[16%] z-20 px-3 py-1.5 bg-[#111111]/90 backdrop-blur border border-[#3A3A3A] text-xs font-bold tracking-[0.14em] text-[#D5D5D5] flex items-center gap-2 shadow-xl"
+            className={`absolute left-[8%] bottom-[16%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
+              isDark
+                ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
+                : 'bg-white/95 border-black/15 text-[#222222]'
+            }`}
             style={{ fontFamily: 'var(--display)' }}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#F26A21] animate-pulse" />
@@ -206,10 +247,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
             <motion.div
               animate={{ y: [-7, 7, -7] }}
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative z-10 p-4 filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.7)] flex items-center justify-center"
+              className="relative z-10 p-4 filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] flex items-center justify-center"
             >
               <img
-                src="/assets/logo-Gepler-body-1.png"
+                src="/assets/logo-Gepler-body-1.png?v=3"
                 alt="Gepler Industrial Symbol"
                 className="w-48 sm:w-60 h-auto max-h-[260px] object-contain transition-transform duration-300 hover:scale-105"
               />
@@ -217,8 +258,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           </div>
 
           {/* Visual bottom caption */}
-          <div className="absolute right-2 bottom-0 flex items-center gap-3 text-xs font-bold tracking-[0.16em] text-[#787878]">
-            <span>CONNECTED SYSTEM</span>
+          <div className="absolute right-2 bottom-0 flex items-center gap-3 text-xs font-bold tracking-[0.16em]">
+            <span className={isDark ? 'text-[#787878]' : 'text-[#666666]'}>CONNECTED SYSTEM</span>
             <b className="bg-[#FFC928] text-black px-2 py-0.5 text-[0.65rem] font-extrabold tracking-widest">
               LIVE
             </b>
@@ -232,13 +273,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
-        className="absolute left-1/2 -translate-x-1/2 bottom-8 hidden md:flex flex-col items-center gap-2 text-white/40 hover:text-[#F26A21] transition-colors group cursor-pointer"
+        className={`absolute left-1/2 -translate-x-1/2 bottom-8 hidden md:flex flex-col items-center gap-2 transition-colors group cursor-pointer ${
+          isDark ? 'text-white/40 hover:text-[#F26A21]' : 'text-black/40 hover:text-[#F26A21]'
+        }`}
         aria-label="เลื่อนลงเพื่อดูเนื้อหาเพิ่มเติม"
       >
-        <span className="text-[0.68rem] tracking-[0.24em] uppercase font-bold text-white/50 group-hover:text-[#F26A21] transition-colors">
+        <span
+          className={`text-[0.68rem] tracking-[0.24em] uppercase font-bold group-hover:text-[#F26A21] transition-colors ${
+            isDark ? 'text-white/50' : 'text-black/50'
+          }`}
+        >
           SCROLL
         </span>
-        <div className="w-5 h-8 rounded-full border border-white/20 group-hover:border-[#F26A21]/60 flex items-start justify-center p-1 transition-colors">
+        <div
+          className={`w-5 h-8 rounded-full border group-hover:border-[#F26A21]/60 flex items-start justify-center p-1 transition-colors ${
+            isDark ? 'border-white/20' : 'border-black/20'
+          }`}
+        >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
@@ -246,12 +297,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           />
         </div>
       </motion.a>
-
-      {/* Vertical scroll cue on right */}
-      <div className="hidden xl:flex absolute right-8 bottom-12 items-center gap-3 rotate-90 origin-right text-[#757575] text-[0.65rem] font-semibold tracking-[0.2em]">
-        <span>SCROLL TO EXPLORE</span>
-        <span className="w-12 h-[1px] bg-[#555555]" aria-hidden="true" />
-      </div>
     </section>
   );
 };

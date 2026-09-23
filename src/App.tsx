@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ThemeProvider, useTheme } from './context/ThemeContext.tsx';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { TrustStrip } from './components/TrustStrip.tsx';
@@ -13,14 +14,19 @@ import { ProjectBriefModal } from './components/ProjectBriefModal.tsx';
 import { ScrollProgressBar } from './components/ScrollProgressBar.tsx';
 import { ScrollToTop } from './components/ScrollToTop.tsx';
 
-export default function App() {
+function AppContent() {
   const [briefOpen, setBriefOpen] = useState(false);
+  const { isDark } = useTheme();
 
   const handleOpenBrief = () => setBriefOpen(true);
   const handleCloseBrief = () => setBriefOpen(false);
 
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-white selection:bg-[#F26A21] selection:text-black relative">
+    <div
+      className={`min-h-screen transition-colors duration-300 selection:bg-[#F26A21] selection:text-black relative ${
+        isDark ? 'bg-[#0B0B0B] text-white' : 'bg-[#F8F6F1] text-[#141414]'
+      }`}
+    >
       {/* Global Scroll Progress Indicator */}
       <ScrollProgressBar />
 
@@ -32,7 +38,7 @@ export default function App() {
         ข้ามไปยังเนื้อหา
       </a>
 
-      {/* Fixed Navigation Header */}
+      {/* Fixed Navigation Header with Theme Switcher */}
       <Navbar onOpenBrief={handleOpenBrief} />
 
       {/* Main Content Sections */}
@@ -56,5 +62,13 @@ export default function App() {
       {/* Interactive Project Brief Modal */}
       <ProjectBriefModal isOpen={briefOpen} onClose={handleCloseBrief} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }

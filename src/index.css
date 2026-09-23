@@ -12,20 +12,40 @@
     --muted: #a7a7a7;
     --display: "Manrope", "IBM Plex Sans Thai", sans-serif;
     --body: "IBM Plex Sans Thai", sans-serif;
+
+    /* Theme adaptive tokens */
+    --theme-bg: #0b0b0b;
+    --theme-surface: #121212;
+    --theme-surface-raised: #181818;
+    --theme-text: #ffffff;
+    --theme-text-muted: #9e9e9e;
+    --theme-border: rgba(255, 255, 255, 0.12);
+  }
+
+  html.light,
+  [data-theme="light"] {
+    --theme-bg: #f8f6f1;
+    --theme-surface: #ffffff;
+    --theme-surface-raised: #f2efe9;
+    --theme-text: #141414;
+    --theme-text-muted: #5e5b56;
+    --theme-border: rgba(0, 0, 0, 0.12);
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
     font-family: var(--body);
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   body {
     margin: 0;
     overflow-x: hidden;
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 }
 
@@ -83,6 +103,14 @@
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+.light .hero-grid-pattern,
+[data-theme="light"] .hero-grid-pattern {
+  opacity: 0.55;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
 }
 
 .contact-network-pattern {
