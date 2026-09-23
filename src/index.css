@@ -4,48 +4,37 @@
   :root {
     --black: #0b0b0b;
     --ink: #151515;
-    --paper: #f3f1ec;
+    --paper: #f8f7f4;
     --white: #ffffff;
     --orange: #f26a21;
     --yellow: #ffc928;
-    --line: rgba(255, 255, 255, 0.13);
-    --muted: #a7a7a7;
+    --line-dark: rgba(255, 255, 255, 0.13);
+    --line-light: rgba(0, 0, 0, 0.1);
+    --muted-dark: #a7a7a7;
+    --muted-light: #6b665f;
     --display: "Manrope", "IBM Plex Sans Thai", sans-serif;
     --body: "IBM Plex Sans Thai", sans-serif;
-
-    /* Theme adaptive tokens */
-    --theme-bg: #0b0b0b;
-    --theme-surface: #121212;
-    --theme-surface-raised: #181818;
-    --theme-text: #ffffff;
-    --theme-text-muted: #9e9e9e;
-    --theme-border: rgba(255, 255, 255, 0.12);
-  }
-
-  html.light,
-  [data-theme="light"] {
-    --theme-bg: #f8f6f1;
-    --theme-surface: #ffffff;
-    --theme-surface-raised: #f2efe9;
-    --theme-text: #141414;
-    --theme-text-muted: #5e5b56;
-    --theme-border: rgba(0, 0, 0, 0.12);
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--theme-bg);
-    color: var(--theme-text);
     font-family: var(--body);
-    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  html.light {
+    background-color: #f8f7f4;
+    color: #111111;
+  }
+
+  html.dark {
+    background-color: #0b0b0b;
+    color: #ffffff;
   }
 
   body {
     margin: 0;
     overflow-x: hidden;
-    background-color: var(--theme-bg);
-    color: var(--theme-text);
-    transition: background-color 0.25s ease, color 0.25s ease;
+    font-family: var(--body);
   }
 }
 
@@ -96,7 +85,7 @@
 }
 
 /* Grid overlay background */
-.hero-grid-pattern {
+.hero-grid-pattern-dark {
   opacity: 0.35;
   background-image: 
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
@@ -105,12 +94,13 @@
   mask-image: linear-gradient(to bottom, black, transparent 90%);
 }
 
-.light .hero-grid-pattern,
-[data-theme="light"] .hero-grid-pattern {
-  opacity: 0.55;
+.hero-grid-pattern-light {
+  opacity: 0.45;
   background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
 }
 
 .contact-network-pattern {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { NetworkCanvas } from './NetworkCanvas.tsx';
+import { GeplerLogo } from './GeplerLogo.tsx';
 import { useTheme } from '../context/ThemeContext.tsx';
 
 interface HeroProps {
@@ -14,19 +15,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
     <section
       id="top"
       className={`relative min-h-screen flex items-center pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden transition-colors duration-300 ${
-        isDark ? 'bg-[#0B0B0B]' : 'bg-[#F8F6F1]'
+        isDark ? 'bg-[#0B0B0B]' : 'bg-[#F8F7F4]'
       }`}
       style={{
         backgroundImage: isDark
           ? 'radial-gradient(circle at 75% 38%, #261209 0%, transparent 34%)'
-          : 'radial-gradient(circle at 75% 38%, rgba(242, 106, 33, 0.12) 0%, transparent 45%)',
+          : 'radial-gradient(circle at 75% 38%, #FBECE2 0%, transparent 40%)',
       }}
     >
       {/* Animated network particles canvas */}
       <NetworkCanvas />
 
       {/* Grid line texture overlay */}
-      <div className="hero-grid-pattern absolute inset-0 pointer-events-none" />
+      <div
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-300 ${
+          isDark ? 'hero-grid-pattern-dark' : 'hero-grid-pattern-light'
+        }`}
+      />
 
       <div className="relative z-10 max-w-[1180px] w-[calc(100%-48px)] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-10 items-center">
         {/* Left Column: Typography & CTAs with Staggered Motion */}
@@ -52,7 +57,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
             }}
             className={`inline-flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase mb-6 ${
-              isDark ? 'text-[#C5C5C5]' : 'text-[#666666]'
+              isDark ? 'text-[#C5C5C5]' : 'text-[#6B665F]'
             }`}
           >
             <span className="w-8 h-[2px] bg-[#F26A21]" aria-hidden="true" />
@@ -66,7 +71,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
             }}
             className={`font-extrabold text-[2.8rem] sm:text-[3.7rem] md:text-[4.8rem] lg:text-[5.2rem] tracking-[-0.035em] mb-8 flex flex-col gap-3 sm:gap-4 md:gap-5 leading-[1.12] sm:leading-[1.14] ${
-              isDark ? 'text-white' : 'text-[#141414]'
+              isDark ? 'text-white' : 'text-[#111111]'
             }`}
             style={{ fontFamily: 'var(--display)' }}
           >
@@ -82,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
             }}
             className={`max-w-[610px] text-base md:text-lg leading-relaxed mb-8 ${
-              isDark ? 'text-[#B8B8B8]' : 'text-[#504C46]'
+              isDark ? 'text-[#B8B8B8]' : 'text-[#555048]'
             }`}
           >
             เราออกแบบและพัฒนาระบบดิจิทัลที่ทำให้ข้อมูล ผู้ใช้งาน และกระบวนการจริงของธุรกิจทำงานร่วมกันได้อย่างลื่นไหล
@@ -111,7 +116,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               className={`inline-flex items-center justify-between gap-6 px-6 py-4 border font-bold text-sm tracking-wider uppercase transition-all duration-200 hover:-translate-y-0.5 group ${
                 isDark
                   ? 'border-[#3D3D3D] hover:border-white text-white'
-                  : 'border-black/20 hover:border-black text-[#141414] hover:bg-black/5'
+                  : 'border-[#D0CBC2] hover:border-[#111111] text-[#111111] hover:bg-black/5'
               }`}
             >
               <span>ดูผลงาน</span>
@@ -126,26 +131,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
               visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
             }}
             className={`grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t ${
-              isDark ? 'border-white/10' : 'border-black/10'
+              isDark ? 'border-white/10' : 'border-[#DDD7CD]'
             }`}
           >
             <div className="flex items-center gap-3">
               <strong className="text-sm font-bold text-[#F26A21] tracking-wider font-mono">01</strong>
-              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#666666]'}`}>
-                เริ่มจากปัญหาจริง
-              </span>
+              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#5E5950]'}`}>เริ่มจากปัญหาจริง</span>
             </div>
             <div className="flex items-center gap-3">
               <strong className="text-sm font-bold text-[#F26A21] tracking-wider font-mono">02</strong>
-              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#666666]'}`}>
-                สร้างให้ใช้งานได้จริง
-              </span>
+              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#5E5950]'}`}>สร้างให้ใช้งานได้จริง</span>
             </div>
             <div className="flex items-center gap-3">
               <strong className="text-sm font-bold text-[#F26A21] tracking-wider font-mono">03</strong>
-              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#666666]'}`}>
-                พร้อมขยายในอนาคต
-              </span>
+              <span className={`text-xs ${isDark ? 'text-[#8F8F8F]' : 'text-[#5E5950]'}`}>พร้อมขยายในอนาคต</span>
             </div>
           </motion.div>
         </motion.div>
@@ -165,7 +164,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
             className={`absolute left-[4%] top-[14%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
               isDark
                 ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
-                : 'bg-white/95 border-black/15 text-[#222222]'
+                : 'bg-white/95 border-[#E2DDD4] text-[#222222]'
             }`}
             style={{ fontFamily: 'var(--display)' }}
           >
@@ -180,7 +179,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
             className={`absolute right-[4%] top-[20%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
               isDark
                 ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
-                : 'bg-white/95 border-black/15 text-[#222222]'
+                : 'bg-white/95 border-[#E2DDD4] text-[#222222]'
             }`}
             style={{ fontFamily: 'var(--display)' }}
           >
@@ -195,7 +194,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
             className={`absolute right-[6%] bottom-[22%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
               isDark
                 ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
-                : 'bg-white/95 border-black/15 text-[#222222]'
+                : 'bg-white/95 border-[#E2DDD4] text-[#222222]'
             }`}
             style={{ fontFamily: 'var(--display)' }}
           >
@@ -210,7 +209,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
             className={`absolute left-[8%] bottom-[16%] z-20 px-3 py-1.5 backdrop-blur border text-xs font-bold tracking-[0.14em] flex items-center gap-2 shadow-xl ${
               isDark
                 ? 'bg-[#111111]/90 border-[#3A3A3A] text-[#D5D5D5]'
-                : 'bg-white/95 border-black/15 text-[#222222]'
+                : 'bg-white/95 border-[#E2DDD4] text-[#222222]'
             }`}
             style={{ fontFamily: 'var(--display)' }}
           >
@@ -222,7 +221,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           <div className="relative w-full max-w-[340px] sm:max-w-[400px] aspect-square flex items-center justify-center">
             {/* Outer Orbit A */}
             <div
-              className="absolute inset-[-10%] border border-[#F26A21]/25 rounded-full animate-orbit pointer-events-none"
+              className="absolute inset-[-10%] border border-[#F26A21]/30 rounded-full animate-orbit pointer-events-none"
               style={{ transform: 'rotate(-13deg)' }}
             >
               <span className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#F26A21]" />
@@ -230,7 +229,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
 
             {/* Inner Orbit B */}
             <div
-              className="absolute inset-[4%] border border-[#FFC928]/20 rounded-full animate-orbit-rev pointer-events-none"
+              className="absolute inset-[4%] border border-[#FFC928]/35 rounded-full animate-orbit-rev pointer-events-none"
               style={{ transform: 'rotate(19deg)' }}
             >
               <span className="absolute bottom-0 right-1/4 w-2 h-2 rounded-full bg-[#FFC928]" />
@@ -247,19 +246,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
             <motion.div
               animate={{ y: [-7, 7, -7] }}
               transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative z-10 p-4 filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)] flex items-center justify-center"
+              className="relative z-10 p-4 filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.25)] flex items-center justify-center"
             >
-              <img
-                src="/assets/logo-Gepler-body-1.png?v=3"
-                alt="Gepler Industrial Symbol"
-                className="w-48 sm:w-60 h-auto max-h-[260px] object-contain transition-transform duration-300 hover:scale-105"
-              />
+              <GeplerLogo variant="body" size="hero" />
             </motion.div>
           </div>
 
           {/* Visual bottom caption */}
-          <div className="absolute right-2 bottom-0 flex items-center gap-3 text-xs font-bold tracking-[0.16em]">
-            <span className={isDark ? 'text-[#787878]' : 'text-[#666666]'}>CONNECTED SYSTEM</span>
+          <div
+            className={`absolute right-2 bottom-0 flex items-center gap-3 text-xs font-bold tracking-[0.16em] ${
+              isDark ? 'text-[#787878]' : 'text-[#7A756D]'
+            }`}
+          >
+            <span>CONNECTED SYSTEM</span>
             <b className="bg-[#FFC928] text-black px-2 py-0.5 text-[0.65rem] font-extrabold tracking-widest">
               LIVE
             </b>
@@ -279,15 +278,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
         aria-label="เลื่อนลงเพื่อดูเนื้อหาเพิ่มเติม"
       >
         <span
-          className={`text-[0.68rem] tracking-[0.24em] uppercase font-bold group-hover:text-[#F26A21] transition-colors ${
-            isDark ? 'text-white/50' : 'text-black/50'
+          className={`text-[0.68rem] tracking-[0.24em] uppercase font-bold transition-colors ${
+            isDark ? 'text-white/50 group-hover:text-[#F26A21]' : 'text-black/50 group-hover:text-[#F26A21]'
           }`}
         >
           SCROLL
         </span>
         <div
-          className={`w-5 h-8 rounded-full border group-hover:border-[#F26A21]/60 flex items-start justify-center p-1 transition-colors ${
-            isDark ? 'border-white/20' : 'border-black/20'
+          className={`w-5 h-8 rounded-full border flex items-start justify-center p-1 transition-colors ${
+            isDark ? 'border-white/20 group-hover:border-[#F26A21]/60' : 'border-black/20 group-hover:border-[#F26A21]/60'
           }`}
         >
           <motion.div
@@ -297,6 +296,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBrief }) => {
           />
         </div>
       </motion.a>
+
+      {/* Vertical scroll cue on right */}
+      <div
+        className={`hidden xl:flex absolute right-8 bottom-12 items-center gap-3 rotate-90 origin-right text-[0.65rem] font-semibold tracking-[0.2em] ${
+          isDark ? 'text-[#757575]' : 'text-[#8A847B]'
+        }`}
+      >
+        <span>SCROLL TO EXPLORE</span>
+        <span
+          className={`w-12 h-[1px] ${isDark ? 'bg-[#555555]' : 'bg-[#C5C0B6]'}`}
+          aria-hidden="true"
+        />
+      </div>
     </section>
   );
 };

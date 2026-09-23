@@ -23,8 +23,10 @@ function AppContent() {
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-300 selection:bg-[#F26A21] selection:text-black relative ${
-        isDark ? 'bg-[#0B0B0B] text-white' : 'bg-[#F8F6F1] text-[#141414]'
+      className={`min-h-screen relative transition-colors duration-300 ${
+        isDark
+          ? 'bg-[#0B0B0B] text-white selection:bg-[#F26A21] selection:text-black'
+          : 'bg-[#F8F7F4] text-[#111111] selection:bg-[#F26A21] selection:text-white'
       }`}
     >
       {/* Global Scroll Progress Indicator */}
@@ -38,7 +40,7 @@ function AppContent() {
         ข้ามไปยังเนื้อหา
       </a>
 
-      {/* Fixed Navigation Header with Theme Switcher */}
+      {/* Fixed Navigation Header */}
       <Navbar onOpenBrief={handleOpenBrief} />
 
       {/* Main Content Sections */}

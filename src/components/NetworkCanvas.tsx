@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from '../context/ThemeContext.tsx';
 
 export const NetworkCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,16 +58,21 @@ export const NetworkCanvas: React.FC = () => {
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.quadraticCurveTo((a.x + b.x) / 2, a.y - 28, b.x, b.y);
-            const alpha = (1 - dist / 210) * 0.22;
+            const baseAlpha = 1 - dist / 210;
+            const alpha = isDark ? baseAlpha * 0.22 : baseAlpha * 0.32;
             ctx.strokeStyle = `rgba(242, 106, 33, ${alpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.lineWidth = isDark ? 0.8 : 1.0;
             ctx.stroke();
           }
         }
 
         ctx.beginPath();
         ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
-        ctx.fillStyle = i % 7 === 0 ? '#ffc928' : 'rgba(242, 106, 33, 0.85)';
+        if (isDark) {
+          ctx.fillStyle = i % 7 === 0 ? '#ffc928' : 'rgba(242, 106, 33, 0.85)';
+        } else {
+          ctx.fillStyle = i % 7 === 0 ? '#D97706' : 'rgba(242, 106, 33, 0.9)';
+        }
         ctx.fill();
       }
 
@@ -86,7 +93,7 @@ export const NetworkCanvas: React.FC = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <canvas

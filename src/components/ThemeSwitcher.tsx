@@ -1,116 +1,117 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { Sun, Moon } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from '../context/ThemeContext.tsx';
 
 interface ThemeSwitcherProps {
-  variant?: 'segmented' | 'compact';
   className?: string;
+  variant?: 'button' | 'segmented';
+  showLabel?: boolean;
 }
 
 export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({
-  variant = 'segmented',
   className = '',
+  variant = 'button',
+  showLabel = false,
 }) => {
-  const { theme, isDark, toggleTheme, setTheme } = useTheme();
+  const { theme, toggleTheme, isDark } = useTheme();
 
-  if (variant === 'compact') {
+  if (variant === 'segmented') {
     return (
-      <button
-        type="button"
-        role="switch"
-        aria-checked={theme === 'light'}
-        aria-label={isDark ? 'สลับเป็นโหมดสว่าง (Light Mode)' : 'สลับเป็นโหมดมืด (Dark Mode)'}
-        title={isDark ? 'สลับเป็นโหมดสว่าง' : 'สลับเป็นโหมดมืด'}
-        onClick={toggleTheme}
-        className={`relative inline-flex items-center justify-center w-9 h-9 transition-colors cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F26A21] ${
+      <div
+        role="group"
+        aria-label="เลือกธีมการแสดงผล"
+        className={`inline-flex items-center p-1 rounded-sm border transition-colors ${
           isDark
-            ? 'bg-[#151515] hover:bg-[#202020] text-[#D4D4D4] hover:text-white border border-white/15'
-            : 'bg-[#ECE8DF] hover:bg-[#E2DDD2] text-[#222222] hover:text-black border border-black/15'
+            ? 'bg-[#151515] border-[#2E2E2E]'
+            : 'bg-[#EDE9E0] border-[#D6D0C4]'
         } ${className}`}
       >
-        <motion.div
-          key={theme}
-          initial={{ rotate: -45, scale: 0.7, opacity: 0 }}
-          animate={{ rotate: 0, scale: 1, opacity: 1 }}
-          exit={{ rotate: 45, scale: 0.7, opacity: 0 }}
-          transition={{ duration: 0.22, ease: 'easeOut' }}
-          className="flex items-center justify-center"
+        <button
+          type="button"
+          onClick={() => isDark && toggleTheme()}
+          aria-pressed={!isDark}
+          className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold transition-all rounded-[2px] cursor-pointer ${
+            !isDark
+              ? 'bg-[#FFFFFF] text-[#111111] shadow-sm'
+              : 'text-[#888888] hover:text-white'
+          }`}
         >
-          {isDark ? (
-            <Moon className="w-4 h-4 text-[#FFC928]" />
-          ) : (
-            <Sun className="w-4 h-4 text-[#F26A21]" />
-          )}
-        </motion.div>
-      </button>
+          <Sun className="w-3.5 h-3.5 text-[#F26A21]" />
+          <span>Light</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => !isDark && toggleTheme()}
+          aria-pressed={isDark}
+          className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold transition-all rounded-[2px] cursor-pointer ${
+            isDark
+              ? 'bg-[#262626] text-white shadow-sm'
+              : 'text-[#666666] hover:text-[#111111]'
+          }`}
+        >
+          <Moon className="w-3.5 h-3.5 text-[#FFC928]" />
+          <span>Dark</span>
+        </button>
+      </div>
     );
   }
 
-  // Segmented Industrial Precision Switch
   return (
-    <div
-      role="group"
-      aria-label="ตัวเลือกธีมแสดงผล (Dark / Light Theme)"
-      className={`inline-flex items-center p-0.5 transition-colors select-none ${
+    <button
+      type="button"
+      role="switch"
+      aria-checked={isDark}
+      aria-label={isDark ? 'สลับเป็นโหมดสว่าง (Light mode)' : 'สลับเป็นโหมดมืด (Dark mode)'}
+      title={isDark ? 'เปลี่ยนเป็นธีมสว่าง' : 'เปลี่ยนเป็นธีมมืด'}
+      onClick={toggleTheme}
+      className={`group relative inline-flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] border transition-all duration-200 cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F26A21] ${
         isDark
-          ? 'bg-[#141414] border border-white/15'
-          : 'bg-[#EAE6DD] border border-black/15'
+          ? 'border-[#353535] bg-[#141414]/90 text-[#D5D5D5] hover:border-[#F26A21] hover:text-white hover:bg-[#1A1A1A]'
+          : 'border-[#D4CEBF] bg-[#FFFFFF]/90 text-[#2B2823] hover:border-[#F26A21] hover:text-[#111111] hover:bg-[#F4F1EA]'
       } ${className}`}
     >
-      {/* Dark Mode Button */}
-      <button
-        type="button"
-        role="radio"
-        aria-checked={isDark}
-        aria-label="เปิดโหมดมืด (Dark Theme)"
-        onClick={() => setTheme('dark')}
-        className={`relative z-10 flex items-center gap-1.5 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.12em] transition-colors cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F26A21] ${
-          isDark
-            ? 'text-white'
-            : 'text-[#666666] hover:text-[#111111]'
-        }`}
-        style={{ fontFamily: 'var(--display)' }}
-      >
-        {isDark && (
-          <motion.div
-            layoutId="theme-active-pill"
-            className="absolute inset-0 bg-[#252525] border border-white/20 shadow-sm"
-            transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-          />
-        )}
-        <span className="relative z-10 flex items-center gap-1.5">
-          <Moon className={`w-3.5 h-3.5 transition-colors ${isDark ? 'text-[#FFC928]' : 'text-current'}`} />
-          <span className="hidden sm:inline">DARK</span>
-        </span>
-      </button>
+      <div className="relative w-4 h-4 flex items-center justify-center">
+        <AnimatePresence mode="wait" initial={false}>
+          {isDark ? (
+            <motion.div
+              key="dark"
+              initial={{ rotate: -90, opacity: 0, scale: 0.7 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              exit={{ rotate: 90, opacity: 0, scale: 0.7 }}
+              transition={{ duration: 0.2 }}
+              className="text-[#FFC928]"
+            >
+              <Moon className="w-4 h-4" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="light"
+              initial={{ rotate: 90, opacity: 0, scale: 0.7 }}
+              animate={{ rotate: 0, opacity: 1, scale: 1 }}
+              exit={{ rotate: -90, opacity: 0, scale: 0.7 }}
+              transition={{ duration: 0.2 }}
+              className="text-[#F26A21]"
+            >
+              <Sun className="w-4 h-4" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-      {/* Light Mode Button */}
-      <button
-        type="button"
-        role="radio"
-        aria-checked={!isDark}
-        aria-label="เปิดโหมดสว่าง (Light Theme)"
-        onClick={() => setTheme('light')}
-        className={`relative z-10 flex items-center gap-1.5 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.12em] transition-colors cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F26A21] ${
-          !isDark
-            ? 'text-black'
-            : 'text-[#888888] hover:text-[#D4D4D4]'
-        }`}
-        style={{ fontFamily: 'var(--display)' }}
-      >
-        {!isDark && (
-          <motion.div
-            layoutId="theme-active-pill"
-            className="absolute inset-0 bg-[#FFFFFF] border border-black/15 shadow-sm"
-            transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-          />
-        )}
-        <span className="relative z-10 flex items-center gap-1.5">
-          <Sun className={`w-3.5 h-3.5 transition-colors ${!isDark ? 'text-[#F26A21]' : 'text-current'}`} />
-          <span className="hidden sm:inline">LIGHT</span>
+      {showLabel && (
+        <span className="whitespace-nowrap">
+          {isDark ? 'Dark Mode' : 'Light Mode'}
         </span>
-      </button>
-    </div>
+      )}
+
+      {/* Subtle indicator dot */}
+      <span
+        className={`w-1.5 h-1.5 rounded-full transition-colors ${
+          isDark ? 'bg-[#FFC928]' : 'bg-[#F26A21]'
+        }`}
+        aria-hidden="true"
+      />
+    </button>
   );
 };

@@ -1,9 +1,17 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { useTheme } from '../context/ThemeContext.tsx';
 
 export const Problems: React.FC = () => {
+  const { isDark } = useTheme();
+
   return (
-    <section id="about" className="py-24 md:py-32 bg-[#F3F1EC] text-[#151515] overflow-hidden">
+    <section
+      id="about"
+      className={`py-24 md:py-32 overflow-hidden transition-colors duration-300 ${
+        isDark ? 'bg-[#121212] text-white' : 'bg-[#F3F1EC] text-[#151515]'
+      }`}
+    >
       <div className="max-w-[1180px] w-[calc(100%-48px)] mx-auto">
         {/* Section Heading with Scroll Animation */}
         <motion.div
@@ -17,7 +25,12 @@ export const Problems: React.FC = () => {
             <span className="w-8 h-8 rounded-full border border-[#F26A21] text-[#F26A21] font-bold text-xs flex items-center justify-center font-mono">
               01
             </span>
-            <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#5F5F5F]" style={{ fontFamily: 'var(--display)' }}>
+            <span
+              className={`text-xs font-bold uppercase tracking-[0.18em] ${
+                isDark ? 'text-[#9E9E9E]' : 'text-[#5F5F5F]'
+              }`}
+              style={{ fontFamily: 'var(--display)' }}
+            >
               Problems we solve
             </span>
           </div>
@@ -33,7 +46,11 @@ export const Problems: React.FC = () => {
         </motion.div>
 
         {/* 3 Problem Cards Grid with Staggered Entrance */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#CFCAC1] border border-[#CFCAC1]">
+        <div
+          className={`grid grid-cols-1 md:grid-cols-3 gap-px border ${
+            isDark ? 'bg-[#2E2E2E] border-[#2E2E2E]' : 'bg-[#CFCAC1] border-[#CFCAC1]'
+          }`}
+        >
           {/* Card 1: Manual Process */}
           <motion.article
             initial={{ opacity: 0, y: 30 }}
@@ -41,28 +58,59 @@ export const Problems: React.FC = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="relative min-h-[340px] md:min-h-[385px] bg-[#F3F1EC] p-8 md:p-9 flex flex-col justify-between transition-colors hover:bg-white group cursor-default"
+            className={`relative min-h-[340px] md:min-h-[385px] p-8 md:p-9 flex flex-col justify-between transition-colors group cursor-default ${
+              isDark
+                ? 'bg-[#181818] hover:bg-[#202020]'
+                : 'bg-[#F3F1EC] hover:bg-white'
+            }`}
           >
             <div>
-              <span className="font-mono text-xs font-bold text-[#777777]">01</span>
+              <span
+                className={`font-mono text-xs font-bold ${
+                  isDark ? 'text-[#888888]' : 'text-[#777777]'
+                }`}
+              >
+                01
+              </span>
               {/* Graphic Mark: Disjointed Manual Work with interactive pulse */}
               <div className="h-32 flex items-center justify-center gap-2.5">
-                <span className="w-2.5 h-14 bg-[#171717] rounded-sm transition-all duration-300 group-hover:scale-y-125 group-hover:bg-[#F26A21]" />
-                <span className="w-2.5 h-20 bg-[#171717] rounded-sm transition-all duration-300 group-hover:scale-y-90" />
-                <span className="w-2.5 h-9 bg-[#171717] rounded-sm transition-all duration-300 group-hover:scale-y-110 group-hover:bg-[#FFC928]" />
+                <span
+                  className={`w-2.5 h-14 rounded-sm transition-all duration-300 group-hover:scale-y-125 group-hover:bg-[#F26A21] ${
+                    isDark ? 'bg-[#E5E5E5]' : 'bg-[#171717]'
+                  }`}
+                />
+                <span
+                  className={`w-2.5 h-20 rounded-sm transition-all duration-300 group-hover:scale-y-90 ${
+                    isDark ? 'bg-[#E5E5E5]' : 'bg-[#171717]'
+                  }`}
+                />
+                <span
+                  className={`w-2.5 h-9 rounded-sm transition-all duration-300 group-hover:scale-y-110 group-hover:bg-[#FFC928] ${
+                    isDark ? 'bg-[#E5E5E5]' : 'bg-[#171717]'
+                  }`}
+                />
               </div>
             </div>
             <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-2.5 text-[#151515]" style={{ fontFamily: 'var(--display)' }}>
+              <h3
+                className={`text-xl md:text-2xl font-bold mb-2.5 ${
+                  isDark ? 'text-white' : 'text-[#151515]'
+                }`}
+                style={{ fontFamily: 'var(--display)' }}
+              >
                 Manual Process
               </h3>
-              <p className="text-sm md:text-base text-[#5E5B57] leading-relaxed m-0">
+              <p
+                className={`text-sm md:text-base leading-relaxed m-0 ${
+                  isDark ? 'text-[#A0A0A0]' : 'text-[#5E5B57]'
+                }`}
+              >
                 ลดงานเอกสาร Excel และการกรอกข้อมูลซ้ำ ด้วย Workflow ที่ออกแบบตามหน้างานจริง
               </p>
             </div>
           </motion.article>
 
-          {/* Card 2: Disconnected Systems (Featured / Highlighted) */}
+          {/* Card 2: Disconnected Systems (Featured / Signature Brand Orange) */}
           <motion.article
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -102,22 +150,49 @@ export const Problems: React.FC = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="relative min-h-[340px] md:min-h-[385px] bg-[#F3F1EC] p-8 md:p-9 flex flex-col justify-between transition-colors hover:bg-white group cursor-default"
+            className={`relative min-h-[340px] md:min-h-[385px] p-8 md:p-9 flex flex-col justify-between transition-colors group cursor-default ${
+              isDark
+                ? 'bg-[#181818] hover:bg-[#202020]'
+                : 'bg-[#F3F1EC] hover:bg-white'
+            }`}
           >
             <div>
-              <span className="font-mono text-xs font-bold text-[#777777]">03</span>
+              <span
+                className={`font-mono text-xs font-bold ${
+                  isDark ? 'text-[#888888]' : 'text-[#777777]'
+                }`}
+              >
+                03
+              </span>
               {/* Graphic Mark: Growth Chart with animated heights on hover */}
               <div className="h-32 flex items-end justify-center gap-2.5 pb-4">
-                <span className="w-6 h-9 bg-[#171717] rounded-t transition-all duration-300 group-hover:h-12" />
-                <span className="w-6 h-16 bg-[#171717] rounded-t transition-all duration-300 group-hover:h-20 group-hover:bg-[#FFC928]" />
+                <span
+                  className={`w-6 h-9 rounded-t transition-all duration-300 group-hover:h-12 ${
+                    isDark ? 'bg-[#E5E5E5]' : 'bg-[#171717]'
+                  }`}
+                />
+                <span
+                  className={`w-6 h-16 rounded-t transition-all duration-300 group-hover:h-20 group-hover:bg-[#FFC928] ${
+                    isDark ? 'bg-[#E5E5E5]' : 'bg-[#171717]'
+                  }`}
+                />
                 <span className="w-6 h-24 bg-[#F26A21] rounded-t transition-all duration-300 group-hover:h-28" />
               </div>
             </div>
             <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-2.5 text-[#151515]" style={{ fontFamily: 'var(--display)' }}>
+              <h3
+                className={`text-xl md:text-2xl font-bold mb-2.5 ${
+                  isDark ? 'text-white' : 'text-[#151515]'
+                }`}
+                style={{ fontFamily: 'var(--display)' }}
+              >
                 Data Without Insight
               </h3>
-              <p className="text-sm md:text-base text-[#5E5B57] leading-relaxed m-0">
+              <p
+                className={`text-sm md:text-base leading-relaxed m-0 ${
+                  isDark ? 'text-[#A0A0A0]' : 'text-[#5E5B57]'
+                }`}
+              >
                 เปลี่ยนข้อมูลที่กระจัดกระจายเป็น Dashboard และข้อมูลพร้อมใช้สำหรับการตัดสินใจ
               </p>
             </div>

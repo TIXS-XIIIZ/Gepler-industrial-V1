@@ -34,11 +34,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
   return (
     <header
       id="site-header"
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
         scrolled
           ? isDark
             ? 'bg-[#0B0B0B]/90 backdrop-blur-md border-b border-white/10 shadow-lg'
-            : 'bg-[#FAF8F5]/92 backdrop-blur-md border-b border-black/10 shadow-md'
+            : 'bg-[#F8F7F4]/90 backdrop-blur-md border-b border-[#E3DFD7] shadow-sm'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -50,11 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
           aria-label="Gepler Industrial หน้าแรก"
           className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F26A21] rounded inline-flex items-center"
         >
-          <GeplerLogo
-            variant="full"
-            size="md"
-            className="transition-transform duration-200 hover:scale-[1.02]"
-          />
+          <GeplerLogo size="md" variant="full" />
         </a>
 
         {/* Desktop Navigation */}
@@ -71,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
               className={`text-xs font-semibold uppercase tracking-[0.14em] transition-colors focus:outline-none focus-visible:text-[#F26A21] ${
                 isDark
                   ? 'text-[#BDBDBD] hover:text-[#F26A21]'
-                  : 'text-[#4A4A4A] hover:text-[#F26A21]'
+                  : 'text-[#4A4742] hover:text-[#F26A21]'
               }`}
             >
               {link.label}
@@ -79,20 +75,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
           ))}
         </nav>
 
-        {/* Action Controls: Theme Switcher & Project CTA */}
-        <div className="hidden sm:flex items-center gap-3.5">
-          {/* Theme Switcher Component */}
-          <ThemeSwitcher variant="segmented" />
+        {/* Action Zone: Theme Switcher & Contact CTA */}
+        <div className="hidden sm:flex items-center gap-3">
+          {/* Theme switcher toggle */}
+          <ThemeSwitcher />
 
-          {/* Start Project CTA Button */}
+          {/* Project Brief CTA button */}
           <button
             type="button"
             id="nav-cta-btn"
             onClick={onOpenBrief}
-            className={`group inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.06em] transition-all cursor-pointer ${
+            className={`group inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold uppercase tracking-[0.06em] border transition-all cursor-pointer ${
               isDark
-                ? 'border border-[#353535] hover:border-[#F26A21] text-white hover:bg-[#151515]'
-                : 'border border-black/20 hover:border-[#F26A21] text-[#141414] hover:bg-black/5'
+                ? 'border-[#353535] hover:border-[#F26A21] text-white hover:bg-[#151515]'
+                : 'border-[#D0CBC2] hover:border-[#F26A21] text-[#111111] hover:bg-[#EBE7DF]'
             }`}
           >
             <span>เริ่มคุยโปรเจกต์</span>
@@ -105,9 +101,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
           </button>
         </div>
 
-        {/* Mobile menu toggle & quick theme toggle */}
+        {/* Mobile controls: Theme toggle + Menu burger */}
         <div className="md:hidden flex items-center gap-2">
-          <ThemeSwitcher variant="compact" />
+          <ThemeSwitcher />
 
           <button
             type="button"
@@ -119,18 +115,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
             className="flex flex-col justify-center items-center w-10 h-10 gap-1.5 p-2 focus:outline-none focus:ring-2 focus:ring-[#F26A21] cursor-pointer"
           >
             <span
-              className={`block w-6 h-0.5 transition-all duration-300 ${
-                isDark ? 'bg-white' : 'bg-[#141414]'
+              className={`block w-6 h-0.5 transition-transform duration-300 ${
+                isDark ? 'bg-white' : 'bg-[#111111]'
               } ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}
             />
             <span
               className={`block w-6 h-0.5 transition-opacity duration-300 ${
-                isDark ? 'bg-white' : 'bg-[#141414]'
+                isDark ? 'bg-white' : 'bg-[#111111]'
               } ${mobileMenuOpen ? 'opacity-0' : ''}`}
             />
             <span
-              className={`block w-6 h-0.5 transition-all duration-300 ${
-                isDark ? 'bg-white' : 'bg-[#141414]'
+              className={`block w-6 h-0.5 transition-transform duration-300 ${
+                isDark ? 'bg-white' : 'bg-[#111111]'
               } ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}
             />
           </button>
@@ -141,10 +137,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
       {mobileMenuOpen && (
         <div
           id="mobile-nav-menu"
-          className={`md:hidden px-6 py-6 flex flex-col gap-4 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200 ${
+          className={`md:hidden border-b px-6 py-6 flex flex-col gap-4 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200 ${
             isDark
-              ? 'bg-[#111111] border-b border-white/10 text-white'
-              : 'bg-[#FAF8F5] border-b border-black/10 text-[#141414]'
+              ? 'bg-[#111111] border-white/10'
+              : 'bg-[#FFFFFF] border-[#E3DFD7]'
           }`}
         >
           {navLinks.map((link) => (
@@ -155,21 +151,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
               className={`text-sm font-semibold tracking-wider py-2 border-b transition-colors ${
                 isDark
                   ? 'text-[#CCCCCC] hover:text-[#F26A21] border-white/5'
-                  : 'text-[#444444] hover:text-[#F26A21] border-black/5'
+                  : 'text-[#333333] hover:text-[#F26A21] border-black/5'
               }`}
             >
               {link.label}
             </a>
           ))}
 
-          {/* Theme Selector in Mobile Menu */}
-          <div
-            className={`flex items-center justify-between py-3 border-b ${
-              isDark ? 'border-white/10' : 'border-black/10'
-            }`}
-          >
-            <span className="text-xs font-bold uppercase tracking-wider text-[#888888]">
-              ธีมแสดงผล
+          <div className="flex items-center justify-between pt-2">
+            <span className={`text-xs font-bold uppercase tracking-wider ${isDark ? 'text-[#888888]' : 'text-[#666666]'}`}>
+              Theme Mode
             </span>
             <ThemeSwitcher variant="segmented" />
           </div>
@@ -180,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBrief }) => {
               setMobileMenuOpen(false);
               onOpenBrief();
             }}
-            className="mt-2 w-full text-center bg-[#F26A21] text-black font-bold py-3 text-xs tracking-wider uppercase hover:bg-[#FFC928] transition-colors cursor-pointer flex items-center justify-center gap-2"
+            className="mt-2 w-full text-center bg-[#F26A21] text-black font-bold py-3 text-xs tracking-wider uppercase hover:bg-[#FFC928] transition-colors cursor-pointer flex items-center justify-center gap-2 shadow-md"
           >
             <span>เริ่มคุยโปรเจกต์</span>
             <span>↗</span>

@@ -1,67 +1,77 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export type Theme = 'dark' | 'light';
+export type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
-  isDark: boolean;
-  isLight: boolean;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
+  isDark: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'gepler_industrial_theme';
+const THEME_STORAGE_KEY = 'gepler-brand-theme';
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Requirement: Default to 'light' theme
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === 'light' || saved === 'dark') {
-        return saved;
+      try {
+        const saved = localStorage.getItem(THEME_STORAGE_KEY);
+        if (saved === 'dark' || saved === 'light') {
+          return saved;
+        }
+      } catch {
+        // Fallback if localStorage is inaccessible
       }
     }
-    return 'light'; // Default brand theme (Light mode)
+    // Default to 'light' mode as explicitly requested
+    return 'light';
   });
-
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
-    try {
-      localStorage.setItem(STORAGE_KEY, newTheme);
-    } catch {
-      // Storage unavailable or disabled
-    }
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
 
   useEffect(() => {
     const root = document.documentElement;
-    root.setAttribute('data-theme', theme);
-    if (theme === 'light') {
-      root.classList.add('light');
-      root.classList.remove('dark');
-    } else {
+    const isDarkMode = theme === 'dark';
+
+    if (isDarkMode) {
       root.classList.add('dark');
       root.classList.remove('light');
+      root.setAttribute('data-theme', 'dark');
+      root.style.colorScheme = 'dark';
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
+      root.style.colorScheme = 'light';
+    }
+
+    // Update browser theme-color meta tag for mobile address bar
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', isDarkMode ? '#0B0B0B' : '#F8F7F4');
+    }
+
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // Ignore localStorage write error
     }
   }, [theme]);
 
-  const value = useMemo(
-    () => ({
-      theme,
-      isDark: theme === 'dark',
-      isLight: theme === 'light',
-      toggleTheme,
-      setTheme,
-    }),
-    [theme]
-  );
+  const toggleTheme = () => {
+    setThemeState((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  const setTheme = (newTheme: Theme) => {
+    setThemeState(newTheme);
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, isDark: theme === 'dark' }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = (): ThemeContextType => {

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { useTheme } from '../context/ThemeContext.tsx';
 
 export const Projects: React.FC = () => {
   const [activeBib, setActiveBib] = useState('0261');
+  const { isDark } = useTheme();
 
   const bibRecords = [
     { bib: '0261', status: 'FINISH', time: '05:42:18', category: '42K Open' },
@@ -23,7 +25,12 @@ export const Projects: React.FC = () => {
   const currentRecord = bibRecords.find((b) => b.bib === activeBib) || bibRecords[0];
 
   return (
-    <section id="projects" className="py-24 md:py-32 bg-[#F3F1EC] text-[#151515] overflow-hidden">
+    <section
+      id="projects"
+      className={`py-24 md:py-32 overflow-hidden transition-colors duration-300 ${
+        isDark ? 'bg-[#121212] text-white' : 'bg-[#F3F1EC] text-[#151515]'
+      }`}
+    >
       <div className="max-w-[1180px] w-[calc(100%-48px)] mx-auto">
         {/* Section Heading */}
         <motion.div
@@ -38,7 +45,9 @@ export const Projects: React.FC = () => {
               03
             </span>
             <span
-              className="text-xs font-bold uppercase tracking-[0.18em] text-[#5F5F5F]"
+              className={`text-xs font-bold uppercase tracking-[0.18em] ${
+                isDark ? 'text-[#9E9E9E]' : 'text-[#5F5F5F]'
+              }`}
               style={{ fontFamily: 'var(--display)' }}
             >
               Selected work
@@ -58,7 +67,11 @@ export const Projects: React.FC = () => {
         </motion.div>
 
         {/* Project 1: Race Check-in & Timing Platform */}
-        <article className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center py-16 border-t border-[#CCC6BC]">
+        <article
+          className={`grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center py-16 border-t ${
+            isDark ? 'border-[#2D2D2D]' : 'border-[#CCC6BC]'
+          }`}
+        >
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -66,32 +79,71 @@ export const Projects: React.FC = () => {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="flex flex-col"
           >
-            <span className="text-xs font-bold tracking-[0.18em] uppercase text-[#F26A21] mb-4" style={{ fontFamily: 'var(--display)' }}>
+            <span
+              className="text-xs font-bold tracking-[0.18em] uppercase text-[#F26A21] mb-4"
+              style={{ fontFamily: 'var(--display)' }}
+            >
               EVENT TECHNOLOGY · 2026
             </span>
             <h3
-              className="text-3xl sm:text-4xl md:text-[2.6rem] font-bold tracking-[-0.035em] leading-[1.08] mb-5 text-[#151515]"
+              className={`text-3xl sm:text-4xl md:text-[2.6rem] font-bold tracking-[-0.035em] leading-[1.08] mb-5 ${
+                isDark ? 'text-white' : 'text-[#151515]'
+              }`}
               style={{ fontFamily: 'var(--display)' }}
             >
               Race Check-in
               <br />& Timing Platform
             </h3>
-            <p className="text-base text-[#625F5A] leading-relaxed mb-6">
+            <p
+              className={`text-base leading-relaxed mb-6 ${
+                isDark ? 'text-[#A5A5A5]' : 'text-[#625F5A]'
+              }`}
+            >
               ระบบสแกน Barcode สำหรับ Check-in, Checkpoint และ Finish พร้อม Dashboard ติดตามผลแบบเรียลไทม์
             </p>
 
-            <dl className="mt-4 divide-y divide-[#D3CEC4] border-t border-[#D3CEC4]">
+            <dl
+              className={`mt-4 divide-y border-t ${
+                isDark
+                  ? 'divide-[#2D2D2D] border-[#2D2D2D]'
+                  : 'divide-[#D3CEC4] border-[#D3CEC4]'
+              }`}
+            >
               <div className="grid grid-cols-[100px_1fr] py-3 text-sm">
-                <dt className="font-bold text-xs uppercase tracking-[0.1em] text-[#89847B]">Problem</dt>
-                <dd className="m-0 text-[#222222]">ขั้นตอนเช็กอินและรวมผลล่าช้า</dd>
+                <dt
+                  className={`font-bold text-xs uppercase tracking-[0.1em] ${
+                    isDark ? 'text-[#888888]' : 'text-[#89847B]'
+                  }`}
+                >
+                  Problem
+                </dt>
+                <dd className={`m-0 ${isDark ? 'text-[#E0E0E0]' : 'text-[#222222]'}`}>
+                  ขั้นตอนเช็กอินและรวมผลล่าช้า
+                </dd>
               </div>
               <div className="grid grid-cols-[100px_1fr] py-3 text-sm">
-                <dt className="font-bold text-xs uppercase tracking-[0.1em] text-[#89847B]">Solution</dt>
-                <dd className="m-0 text-[#222222]">Mobile Scanner + Live Dashboard</dd>
+                <dt
+                  className={`font-bold text-xs uppercase tracking-[0.1em] ${
+                    isDark ? 'text-[#888888]' : 'text-[#89847B]'
+                  }`}
+                >
+                  Solution
+                </dt>
+                <dd className={`m-0 ${isDark ? 'text-[#E0E0E0]' : 'text-[#222222]'}`}>
+                  Mobile Scanner + Live Dashboard
+                </dd>
               </div>
               <div className="grid grid-cols-[100px_1fr] py-3 text-sm">
-                <dt className="font-bold text-xs uppercase tracking-[0.1em] text-[#89847B]">Impact</dt>
-                <dd className="m-0 text-[#222222]">ติดตามสถานะผู้แข่งขันได้จากจุดเดียว</dd>
+                <dt
+                  className={`font-bold text-xs uppercase tracking-[0.1em] ${
+                    isDark ? 'text-[#888888]' : 'text-[#89847B]'
+                  }`}
+                >
+                  Impact
+                </dt>
+                <dd className={`m-0 ${isDark ? 'text-[#E0E0E0]' : 'text-[#222222]'}`}>
+                  ติดตามสถานะผู้แข่งขันได้จากจุดเดียว
+                </dd>
               </div>
             </dl>
           </motion.div>
@@ -103,7 +155,7 @@ export const Projects: React.FC = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.65, ease: 'easeOut' }}
             whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(44,35,20,0.18)] p-6 md:p-8 text-white overflow-hidden rounded-sm"
+            className="relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(0,0,0,0.25)] p-6 md:p-8 text-white overflow-hidden rounded-sm"
           >
             {/* Ambient Corner Glow */}
             <div className="absolute -right-20 -bottom-20 w-64 h-64 rounded-full bg-[#F26A21]/15 blur-3xl pointer-events-none" />
@@ -188,7 +240,11 @@ export const Projects: React.FC = () => {
         </article>
 
         {/* Project 2: Smart Stock Management (Reverse layout) */}
-        <article className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center py-16 border-t border-[#CCC6BC]">
+        <article
+          className={`grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 items-center py-16 border-t ${
+            isDark ? 'border-[#2D2D2D]' : 'border-[#CCC6BC]'
+          }`}
+        >
           {/* Stock UI Frame */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -196,7 +252,7 @@ export const Projects: React.FC = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.65, ease: 'easeOut' }}
             whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            className="order-2 lg:order-1 relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(44,35,20,0.18)] flex text-white overflow-hidden rounded-sm"
+            className="order-2 lg:order-1 relative min-h-[420px] bg-[#171717] border-[6px] md:border-8 border-[#222222] shadow-[0_32px_65px_rgba(0,0,0,0.25)] flex text-white overflow-hidden rounded-sm"
           >
             {/* Sidebar rail */}
             <div className="w-14 sm:w-16 bg-[#111111] border-r border-[#262626] flex flex-col items-center gap-5 py-6 shrink-0">
@@ -265,32 +321,71 @@ export const Projects: React.FC = () => {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="order-1 lg:order-2 flex flex-col"
           >
-            <span className="text-xs font-bold tracking-[0.18em] uppercase text-[#F26A21] mb-4" style={{ fontFamily: 'var(--display)' }}>
+            <span
+              className="text-xs font-bold tracking-[0.18em] uppercase text-[#F26A21] mb-4"
+              style={{ fontFamily: 'var(--display)' }}
+            >
               INDUSTRIAL SYSTEM · 2026
             </span>
             <h3
-              className="text-3xl sm:text-4xl md:text-[2.6rem] font-bold tracking-[-0.035em] leading-[1.08] mb-5 text-[#151515]"
+              className={`text-3xl sm:text-4xl md:text-[2.6rem] font-bold tracking-[-0.035em] leading-[1.08] mb-5 ${
+                isDark ? 'text-white' : 'text-[#151515]'
+              }`}
               style={{ fontFamily: 'var(--display)' }}
             >
               Smart Stock
               <br />Management
             </h3>
-            <p className="text-base text-[#625F5A] leading-relaxed mb-6">
+            <p
+              className={`text-base leading-relaxed mb-6 ${
+                isDark ? 'text-[#A5A5A5]' : 'text-[#625F5A]'
+              }`}
+            >
               ระบบบริหารรับเข้า–จ่ายออก เชื่อม Plan และเก็บประวัติการเคลื่อนไหว เพื่อให้ตรวจสอบยอดคงเหลือได้ชัดเจน
             </p>
 
-            <dl className="mt-4 divide-y divide-[#D3CEC4] border-t border-[#D3CEC4]">
+            <dl
+              className={`mt-4 divide-y border-t ${
+                isDark
+                  ? 'divide-[#2D2D2D] border-[#2D2D2D]'
+                  : 'divide-[#D3CEC4] border-[#D3CEC4]'
+              }`}
+            >
               <div className="grid grid-cols-[100px_1fr] py-3 text-sm">
-                <dt className="font-bold text-xs uppercase tracking-[0.1em] text-[#89847B]">Problem</dt>
-                <dd className="m-0 text-[#222222]">ข้อมูล Stock แยกหลายแหล่ง</dd>
+                <dt
+                  className={`font-bold text-xs uppercase tracking-[0.1em] ${
+                    isDark ? 'text-[#888888]' : 'text-[#89847B]'
+                  }`}
+                >
+                  Problem
+                </dt>
+                <dd className={`m-0 ${isDark ? 'text-[#E0E0E0]' : 'text-[#222222]'}`}>
+                  ข้อมูล Stock แยกหลายแหล่ง
+                </dd>
               </div>
               <div className="grid grid-cols-[100px_1fr] py-3 text-sm">
-                <dt className="font-bold text-xs uppercase tracking-[0.1em] text-[#89847B]">Solution</dt>
-                <dd className="m-0 text-[#222222]">Transaction History + Plan Integration</dd>
+                <dt
+                  className={`font-bold text-xs uppercase tracking-[0.1em] ${
+                    isDark ? 'text-[#888888]' : 'text-[#89847B]'
+                  }`}
+                >
+                  Solution
+                </dt>
+                <dd className={`m-0 ${isDark ? 'text-[#E0E0E0]' : 'text-[#222222]'}`}>
+                  Transaction History + Plan Integration
+                </dd>
               </div>
               <div className="grid grid-cols-[100px_1fr] py-3 text-sm">
-                <dt className="font-bold text-xs uppercase tracking-[0.1em] text-[#89847B]">Impact</dt>
-                <dd className="m-0 text-[#222222]">ตรวจสอบย้อนกลับได้ในระบบเดียว</dd>
+                <dt
+                  className={`font-bold text-xs uppercase tracking-[0.1em] ${
+                    isDark ? 'text-[#888888]' : 'text-[#89847B]'
+                  }`}
+                >
+                  Impact
+                </dt>
+                <dd className={`m-0 ${isDark ? 'text-[#E0E0E0]' : 'text-[#222222]'}`}>
+                  ตรวจสอบย้อนกลับได้ในระบบเดียว
+                </dd>
               </div>
             </dl>
           </motion.div>
