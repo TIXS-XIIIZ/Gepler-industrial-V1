@@ -16,16 +16,14 @@ export const GeplerLogo: React.FC<GeplerLogoProps> = ({
 }) => {
   const { isDark } = useTheme();
 
-  // Full logo asset selection based on theme:
-  // - Light theme: /assets/logo-Gepler-full-1-dark.png (dark text/elements on light background)
-  // - Dark theme: /assets/logo-Gepler-full-1.png (light text/elements on dark background)
-  // Icon logo asset:
-  // - /assets/logo-Gepler-body-1.png (works for all themes)
-  const fullLogoSrc = isDark
-    ? '/assets/logo-Gepler-full-1.png'
-    : '/assets/logo-Gepler-full-1-dark.png';
-
-  const iconLogoSrc = '/assets/logo-Gepler-body-1.png';
+  // Logo asset specifications:
+  // - Full logo:
+  //   Light theme: /assets/gis_no_bk_full.png (black text)
+  //   Dark theme: /assets/gis_no_bk_full.png with white text rendering
+  // - Icon logo:
+  //   /assets/gis_no_bk_body.png (works for all themes)
+  const fullLogoSrc = '/assets/gis_no_bk_full.png';
+  const iconLogoSrc = '/assets/gis_no_bk_body.png';
 
   const fullSizes = {
     sm: 'h-7 sm:h-8 w-auto',
@@ -53,13 +51,53 @@ export const GeplerLogo: React.FC<GeplerLogoProps> = ({
     );
   }
 
+  // In dark theme, gis_no_bk_full.png has black letters.
+  // We provide the crisp white letters version for Theme dark.
+  // The emblem on the left has orange/yellow branding which stays intact,
+  // and the text turns crisp white via SVG filter or dual rendering.
   return (
-    <img
-      src={fullLogoSrc}
-      alt={alt}
-      className={`object-contain select-none transition-opacity duration-200 ${fullSizes[size]} ${className}`}
-      loading="eager"
-      decoding="async"
-    />
+    <div className={`relative inline-flex items-center ${fullSizes[size]} ${className}`}>
+      {isDark ? (
+        <div className="relative inline-flex items-center h-full w-auto">
+          {/* Emblem portion (left ~38%) - keeps original orange & yellow tone */}
+          <div className="h-full w-auto overflow-hidden flex items-center">
+            <img
+              src={fullLogoSrc}
+              alt={alt}
+              className="h-full w-auto max-w-none select-none object-contain pointer-events-none"
+              style={{
+                clipPath: 'polygon(0 0, 39% 0, 39% 100%, 0 100%)',
+              }}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+
+          {/* Text portion (right ~61%) - inverted to crisp pure white */}
+          <div className="absolute inset-0 h-full w-full flex items-center">
+            <img
+              src={fullLogoSrc}
+              alt=""
+              aria-hidden="true"
+              className="h-full w-auto max-w-none select-none object-contain pointer-events-none"
+              style={{
+                clipPath: 'polygon(39% 0, 100% 0, 100% 100%, 39% 100%)',
+                filter: 'brightness(0) invert(1)',
+              }}
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        </div>
+      ) : (
+        <img
+          src={fullLogoSrc}
+          alt={alt}
+          className="h-full w-auto object-contain select-none transition-opacity duration-200"
+          loading="eager"
+          decoding="async"
+        />
+      )}
+    </div>
   );
 };
