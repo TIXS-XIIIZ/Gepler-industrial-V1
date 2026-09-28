@@ -17,9 +17,9 @@ export const GeplerLogo: React.FC<GeplerLogoProps> = ({
   const { isDark } = useTheme();
 
   // Logo asset specifications:
-  // - Icon logo: /assets/new_logo_gis_1.png (user specified icon)
+  // - Icon logo: /assets/new_logo_gis_2.png (user specified icon)
   // - Label: /assets/logo-Gepler-label.png (dark mode white text) / /assets/logo-Gepler-label-dark.png (light mode dark text)
-  const iconLogoSrc = '/assets/new_logo_gis_1.png';
+  const iconLogoSrc = '/assets/new_logo_gis_2.png';
   const labelLogoSrc = isDark
     ? '/assets/logo-Gepler-label.png'
     : '/assets/logo-Gepler-label-dark.png';
